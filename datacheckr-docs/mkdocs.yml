@@ -1,0 +1,20 @@
+site_name: DataCheckr Documentation
+site_description: A lightweight data validation and profiling tool for pandas DataFrames.
+site_author: Your Name
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - toc.integrate
+    - content.code.annotate
+    - navigation.instant
+    - navigation.top
+    - content.tabs.link
+nav:
+  - Home: index.md
+  - Usage: usage.md
+  - Design: design.md
+
+
+
