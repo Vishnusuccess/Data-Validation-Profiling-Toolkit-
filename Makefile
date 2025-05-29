@@ -39,4 +39,4 @@ format:
 	$(VENV)/bin/black datacheckr tests
 
 clean:
-	rm -rf __pycache__ .pytest_cache .coverage htmlcov .venv .mypy_cache *.pyc *.pyo *.egg-info
+	rm -rf __pycache__ .pytest_cache .coverage htmlcov .venv .mypy_cache *.pyc *.pyo *.egg-info .ruff_cache build

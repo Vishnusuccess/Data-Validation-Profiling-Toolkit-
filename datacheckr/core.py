@@ -1,9 +1,11 @@
-import pandas as pd
-import sys
 import argparse
 import sqlite3
-from datacheckr.reporters import generate_markdown_report
+import sys
+
+import pandas as pd
+
 from datacheckr.loaders import load_from_csv, load_from_parquet, load_from_sql
+from datacheckr.reporters import generate_markdown_report
 
 
 def validate_dataframe(df: pd.DataFrame) -> dict:
@@ -65,7 +67,7 @@ def validate_dataframe(df: pd.DataFrame) -> dict:
 
 def main(args=None):
     parser = argparse.ArgumentParser(description="Data validation and profiling tool.")
-    parser.add_argument("type", choices=["csv", "parquet", "sql"], help="Type of input data source.")
+    parser.add_argument("type", choices=["csv", "parquet", "sql"], help="Type of input data.")
     parser.add_argument("path", help="Path to the data file or SQL database.")
     parser.add_argument("--query", help="SQL SELECT query to run (required if type is 'sql').")
 

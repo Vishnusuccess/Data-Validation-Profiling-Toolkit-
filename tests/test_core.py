@@ -1,7 +1,9 @@
+from unittest import mock
+
 import pandas as pd
 import pytest
-from unittest import mock
-from datacheckr.core import validate_dataframe, main
+
+from datacheckr.core import main, validate_dataframe
 
 
 def test_validate_normal_dataframe():

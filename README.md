@@ -64,3 +64,11 @@ make lint
  ```bash
  make clean 
   ```
+
+### Run the Docs Server
+
+```bash
+cd datacheckr-docs
+mkdocs serve
+http://127.0.0.1:8000/
+```
