@@ -1,0 +1,4 @@
+pandas>=1.1
+markdown>=3.3
+pytest>=7.0
+bleach>=6.0.0

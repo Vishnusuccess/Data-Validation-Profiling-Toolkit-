@@ -1,0 +1,4 @@
+# datacheckr/config.py
+
+DEFAULT_NULL_THRESHOLD = 0.3
+DEFAULT_UNIQUE_THRESHOLD = 0.95
