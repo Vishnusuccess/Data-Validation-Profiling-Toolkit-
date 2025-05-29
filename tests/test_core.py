@@ -5,7 +5,7 @@ import pytest
 
 from datacheckr.core import main, validate_dataframe
 
-
+# Test Validate dataframe
 def test_validate_normal_dataframe():
     df = pd.DataFrame({
         "id": [1, 2, 3, 4],
@@ -29,7 +29,7 @@ def test_validate_normal_dataframe():
     assert len(result["validations"]) == 0
 
 
-
+# Test Validate Empty Dataframe
 def test_validate_empty_dataframe():
     df = pd.DataFrame()
     result = validate_dataframe(df)
@@ -38,12 +38,12 @@ def test_validate_empty_dataframe():
     assert "Empty DataFrame" in result["message"]
     assert "validations" in result
 
-
+# Test that validate_dataframe raises ValueError when input is not a DataFrame
 def test_invalid_input_raises_error():
     with pytest.raises(ValueError):
         validate_dataframe("not a dataframe")
 
-
+# Test that validate_dataframe detects missing required columns in DataFrame
 def test_missing_required_column():
     df = pd.DataFrame({
         "id": [1, 2, 3, 4],
@@ -52,10 +52,12 @@ def test_missing_required_column():
     result = validate_dataframe(df)
     assert any("Missing required column: 'name'" in v for v in result["validations"])
 
-
+# Test the main() function with CSV input type
 @mock.patch("sys.argv", ["core.py", "csv", "tests/sample.csv"])
 @mock.patch("datacheckr.core.load_from_csv")
 @mock.patch("datacheckr.core.generate_markdown_report")
+
+# Mocks loading a CSV file returning a DataFrame
 def test_main_csv(mock_report, mock_loader):
     df = pd.DataFrame({
         "id": [1, 2],
@@ -66,7 +68,7 @@ def test_main_csv(mock_report, mock_loader):
     main()
     mock_report.assert_called_once()
 
-
+# Test the main() function with Parquet input type
 @mock.patch("sys.argv", ["core.py", "parquet", "tests/sample.parquet"])
 @mock.patch("datacheckr.core.load_from_parquet")
 @mock.patch("datacheckr.core.generate_markdown_report")
@@ -76,7 +78,7 @@ def test_main_parquet(mock_report, mock_loader):
     main()
     mock_report.assert_called_once()
 
-
+# Test the main() function with SQL input type and a valid query
 @mock.patch("sys.argv", ["core.py", "sql", "fake.db", "--query", "SELECT * FROM table"])
 @mock.patch("sqlite3.connect")
 @mock.patch("datacheckr.core.load_from_sql")
@@ -89,6 +91,7 @@ def test_main_sql(mock_report, mock_sql_loader, mock_connect):
     mock_report.assert_called_once()
 
 
+# Test that main() exits with an error if SQL input is selected without a required --query argument
 @mock.patch("sys.argv", ["core.py", "sql", "fake.db"])
 def test_main_sql_missing_query(monkeypatch, capsys):
     with pytest.raises(SystemExit):
@@ -96,7 +99,7 @@ def test_main_sql_missing_query(monkeypatch, capsys):
     captured = capsys.readouterr()
     assert "Error: --query is required" in captured.out
 
-
+# Test that main() exits with an error if unsupported file type is provided
 @mock.patch("sys.argv", ["core.py", "unsupported", "path"])
 def test_main_unsupported_filetype(capsys):
     with pytest.raises(SystemExit):
@@ -107,7 +110,7 @@ def test_main_unsupported_filetype(capsys):
 
 
 
-
+# Test main() handling when loader function raises an exception (e.g., file not found)
 @mock.patch("sys.argv", ["core.py", "csv", "missing.csv"])
 @mock.patch("datacheckr.core.load_from_csv", side_effect=RuntimeError("File not found"))
 def test_main_loader_exception(mock_loader, capsys):
